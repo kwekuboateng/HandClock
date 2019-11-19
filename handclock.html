@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hand Clock</title>
+    <style>
+        /* Add your CSS here */
+      .circle{
+        width: 200px;
+        height: 200px;
+        border: 2px solid black;
+        border-radius: 100%;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center
+      }
+      .container{
+        width: 100%;
+        height: 100%;
+        transform: translateY(0px);
+      }
+      .timer{
+        transform-origin: 100%;
+        transform: rotate(90deg);
+        top: 50%;
+        height: 8px;
+        width: 50%;
+        position: absolute;
+      }
+      .seconds{
+        background: linear-gradient(black, black);
+        height: 5px;
+      }
+      .minutes{
+        background: linear-gradient(blue, blue)
+      }
+      .hours{
+        background: linear-gradient(red, red)
+      }
+    </style>
+</head>
+<body>
+<!--Add your layout here-->
+  <div class="circle">
+    <div class="container">
+    <div class="timer hours">hour</div>
+    <div class="timer minutes">minutes</div>
+    <div class="timer seconds">seconds</div>
+     </div>
+  </div>
+<script>
+    // Add your JavaScript code here
+  const secondsEle = document.querySelector('.seconds');
+  const minutesEle = document.querySelector('.minutes');
+  const hoursEle = document.querySelector('.hours');
+  
+  function rotateTimer(ele, deg){
+    ele.style.transform = `rotate(${deg+90}deg)`
+  }
+  function updateTimerToCurrent(){
+    var now = new Date();
+    var h = now.getHours();
+    var m = now.getMinutes();
+    var s = now.getSeconds();
+    
+    var secondsRotate = (s / 60) * 360;
+    var minutesRotate = (m / 60) * 360 + (s / 60) * 6;
+    var hoursRotate = (h / 12) * 360 + (m/60) * 30
+    
+    rotateTimer(secondsEle, secondsRotate)
+    rotateTimer(minutesEle, minutesRotate)
+    rotateTimer(hoursEle, hoursRotate)
+
+  }
+  setInterval(updateTimerToCurrent, 1000);
+  updateTimerToCurrent();
+</script>
+</body>
+</html>
+
+
+
